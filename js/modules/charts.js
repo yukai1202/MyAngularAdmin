@@ -14,13 +14,13 @@ directive('bindChart', function() {
 				    legend:{
 				      	location:'nw'
 				    },
-				    /*axesDefaults: {
-				    	show:false,
-				    	ticks: [0,10,20,30,40,50,60,70,80,90,100],
-				    },*/
+				    axesDefaults: {
+				    	show: false,
+				    	ticks: [0,test.length],
+				    },
 				    axes:{
-				    	yaxis:{min:-100, max:100,pad:0},
-				    	xaxis:{min:0, max:100,pad:0}
+				    	//yaxis:{min:-100, max:100,pad:0},
+				    	xaxis:{min:0, pad:0}
 
 				    },
 				    textColor:"#ff0000",
@@ -38,13 +38,13 @@ directive('bindChart', function() {
 					    zoom:true,
 					    constrainZoomTo: 'x'
 				    },
-				    /*axesDefaults: {
-				    	show:false,
-				    	ticks: [0,10,20,30,40,50,60,70,80,90,100],
-				    },*/
+				    // axesDefaults: {
+				    // 	show:false,
+				    // 	ticks: [0,1600],
+				    // },
 				    axes:{
-				    	yaxis:{min:-100, max:100,pad:0},
-				    	xaxis:{min:0, max:100,pad:0}
+				    	//yaxis:{min:-100, max:100,pad:0},
+				    	xaxis:{min:0, pad:0}
 
 				    },
 				    textColor:"#ff0000",
@@ -54,6 +54,17 @@ directive('bindChart', function() {
 			  	$.jqplot.Cursor.zoomProxy(targetPlot, controllerPlot);
 			     
 			  	$.jqplot._noToImageButton = true;
+
+			  	$.jqplot.postDrawHooks.push(function(){
+			  		  var c = this.plugins.cursor;
+					   if(c._zoom.zooming) {
+					       alert('Zoom In');
+					   } else {
+					      alert('Zoom Out');
+					   }
+			  	});
+
+
 	            //}.bind(this),2000);
         }
     }
