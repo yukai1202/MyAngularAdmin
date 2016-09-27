@@ -1,0 +1,30 @@
+<header id="header" data-current-skin={{mactrl.currentSkin}} data-ng-include="'template/header.html'" data-ng-controller="headerCtrl as hctrl"></header>
+
+<section id="main">
+    <aside id="sidebar" data-ng-include="'template/sidebar-left.html'" data-ng-class="{ 'toggled': mactrl.sidebarToggle.left === true }"></aside>
+
+     
+
+    <section id="content">
+
+        <div class="container">
+            <div class="block-header">
+                <h2>脑电图</h2>
+
+            </div>
+
+           	<div class="card" style="height:800px" bind-chart>
+                <div class="card-body">
+                    <div class="jqPlot" id="chart1" style="height:320px; width:100%;"></div>
+					<div class="jqPlot" id="chart2" style="margin-top: 30px; height:100px; width:100%;"></div>
+					<button type="button" class="btn btn-primary btn-sm m-t-10 waves-effect" onclick="controllerPlot.resetZoom();">Reset</button>
+					 
+                </div>
+            </div>
+
+           
+        </div>
+    </section>
+</section>
+
+<footer id="footer" data-ng-include="'template/footer.html'"></footer>

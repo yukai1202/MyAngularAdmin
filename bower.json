@@ -1,0 +1,17 @@
+{
+  "name": "eeg",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "fishyk1202@gmail.com <fishyk1202@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
