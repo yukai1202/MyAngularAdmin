@@ -1739,6 +1739,86 @@
      * Plot object returned by call to $.jqplot.  Handles parsing user options,
      * creating sub objects (Axes, legend, title, series) and rendering the plot.
      */
+
+
+     var canvas, ctx, flag = false,
+        prevX = 0,
+        currX = 0,
+        prevY = 0,
+        currY = 0,
+        dot_flag = false;
+
+        var x = "black",
+        y = 2;
+
+        function customDraw() {
+
+            if(!canvas){
+                canvas = document.querySelector(".jqplot-overlayCanvas-canvas");
+            }
+
+            if(!ctx){
+                ctx = canvas.getContext('2d')
+            }
+
+
+
+            /*ctx.beginPath();
+            ctx.moveTo(prevX, prevY);
+            ctx.lineTo(currX, currY);
+            ctx.strokeStyle = x;
+            ctx.lineWidth = y;
+            ctx.stroke();
+            ctx.closePath();*/
+            // ctx.beginPath();
+            //   ctx.moveTo(100, 150);
+            //   ctx.lineTo(450, 50);
+            //   ctx.stroke();
+        }
+
+        function findxy(res, e) {
+
+            if(!canvas){
+                canvas = document.querySelector(".jqplot-overlayCanvas-canvas");
+            }
+
+            if(!ctx){
+                ctx = canvas.getContext('2d')
+            }
+
+            if (res == 'down') {
+                prevX = currX;
+                prevY = currY;
+                currX = e.clientX - canvas.offsetLeft;
+                currY = e.clientY - canvas.offsetTop;
+        
+                flag = true;
+                dot_flag = true;
+                if (dot_flag) {
+                    ctx.beginPath();
+                    ctx.fillStyle = x;
+                    ctx.fillRect(currX, currY, 2, 2);
+                    console.log(currX+"    "+currY);
+                    ctx.closePath();
+                    dot_flag = false;
+                }
+            }
+            if (res == 'up' || res == "out") {
+                flag = false;
+            }
+            if (res == 'move') {
+                if (flag) {
+                    prevX = currX;
+                    prevY = currY;
+                    currX = e.clientX - canvas.offsetLeft;
+                    currY = e.clientY - canvas.offsetTop;
+                    customDraw();
+                }
+            }
+        }
+
+
+
     function jqPlot() {
         // Group: Properties
         // These properties are specified at the top of the options object
@@ -3252,10 +3332,10 @@
             this.eventCanvas._elem.bind('mouseenter', {plot:this}, this.onMouseEnter);
             this.eventCanvas._elem.bind('mouseleave', {plot:this}, this.onMouseLeave);
             if (this.captureRightClick) {
-                this.eventCanvas._elem.bind('mouseup', {plot:this}, this.onRightClick);
-                this.eventCanvas._elem.get(0).oncontextmenu = function() {
-                    return false;
-                };
+                // this.eventCanvas._elem.bind('mouseup', {plot:this}, this.onRightClick);
+                // this.eventCanvas._elem.get(0).oncontextmenu = function() {
+                //     return false;
+                // };
             }
             else {
                 this.eventCanvas._elem.bind('mouseup', {plot:this}, this.onMouseUp);
@@ -3607,7 +3687,14 @@
             $(this).trigger(evt, [positions.gridPos, positions.dataPos, neighbor, p]);
         };
         
+
         this.onMouseDown = function(ev) {
+
+            if(ev.which == 3){
+                //alert("3333");
+                findxy('down', ev)
+                return;
+            }
             var positions = getEventPosition(ev);
             var p = ev.data.plot;
             var neighbor = checkIntersection(positions.gridPos, p);
@@ -3618,6 +3705,12 @@
         };
         
         this.onMouseUp = function(ev) {
+            if(ev.which == 3){
+                //alert("3333");
+                findxy('up', ev)
+                return;
+            }
+
             var positions = getEventPosition(ev);
             var evt = $.Event('jqplotMouseUp');
             evt.pageX = ev.pageX;
@@ -3646,6 +3739,12 @@
         };
         
         this.onMouseMove = function(ev) {
+
+            if(ev.which == 3){
+                //alert("3333");
+                findxy('move', ev)
+                return;
+            }
             var positions = getEventPosition(ev);
             var p = ev.data.plot;
             var neighbor = checkIntersection(positions.gridPos, p);

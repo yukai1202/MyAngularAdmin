@@ -581,4 +581,10 @@ eegAdmin
         }
     
     })
+    
+
+    .controller('homeCtrl', function($scope){
+
+        
+    })
 

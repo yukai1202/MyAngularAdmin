@@ -12,14 +12,18 @@
                 <h2>脑电图</h2>
 
             </div>
-
-           	<div class="card" style="height:800px" bind-chart>
+    
+           	<div class="card" bind-chart>
                 <div class="card-body">
                     <div class="jqPlot" id="chart1" style="height:320px; width:100%;"></div>
-					<div class="jqPlot" id="chart2" style="margin-top: 30px; height:100px; width:100%;"></div>
+					<canvas class="jqPlot" id="chart2" width="1558" height="50" style="margin-left:24px;border:1px solid gray;"></canvas>
 					<button type="button" class="btn btn-primary btn-sm m-t-10 waves-effect" onclick="controllerPlot.resetZoom();">Reset</button>
 					 
                 </div>
+    
+                <button type="button" class="btn btn-primary btn-sm m-t-10 waves-effect" ng-click="test1();">test1</button>
+                <button type="button" class="btn btn-primary btn-sm m-t-10 waves-effect" ng-click="test2();">test2</button>
+                <button type="button" class="btn btn-primary btn-sm m-t-10 waves-effect" ng-click="test3();">test3</button>
             </div>
 
            
